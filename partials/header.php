@@ -22,9 +22,9 @@
 <body>
 
     <header>
-        <div class="blog-masthead">
+        <div class="blog-masthead" id="navbarContainer">
             <div class="container">
-                <nav class="nav">
+                <nav class="nav" id="myNavbar">
                     <a class="nav-link active" href="#">Home</a>
                     <a class="nav-link" href="#">New features</a>
                     <a class="nav-link" href="#">Press</a>

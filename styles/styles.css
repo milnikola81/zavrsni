@@ -1,0 +1,28 @@
+p {
+    font-size: 14px !important;
+}
+
+#navbarContainer {
+    background: #b34848 !important;
+}
+
+#myNavbar {
+    background: transparent !important;
+}
+
+.nav-link {
+    color: #e0cabf !important;
+}
+
+.nav-link:hover {
+    color: white !important;
+}
+
+h1, h2 {
+    color: #b34848 !important;
+}
+
+h2 > a {
+    //text-decoration: none !important;
+    color: #b34848 !important;
+}
