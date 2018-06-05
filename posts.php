@@ -1,23 +1,6 @@
 <?php
-    // ako su mysql username/password i ime baze na vasim racunarima drugaciji
-    // obavezno ih ovde zamenite
-    $servername = "127.0.0.1";
-    $username = "root";
-    $password = "vivify";
-    $dbname = "blog";
-
-    try {
-        $connection = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-        // set the PDO error mode to exception
-        $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    }
-    catch(PDOException $e)
-    {
-        echo $e->getMessage();
-    }
+    include_once "partials/dbconnection.php";
 ?>
-
-
 
 <?php
     include_once "partials/header.php";
@@ -59,7 +42,7 @@
                 foreach ($posts as $post) {
             ?>
                 <div class="blog-post">
-                    <h2 class="blog-post-title"><a href="<?php echo($post['id']) ?>"><?php echo($post['title']) ?></a></h2>
+                    <h2 class="blog-post-title"><a href = "single-post.php?id=<?php echo($post['id']) ?>"><?php echo($post['title']) ?></a></h2>
                     <p class="blog-post-meta"><?php echo ($post['created_at']) ?> by <a href="#"><?php echo($post['author']) ?></a></p>
                     <p><?php echo ($post['body']) ?></p>
                 </div>
@@ -87,6 +70,3 @@
 <?php
     include_once "partials/footer.php";
 ?>
-
-</body>
-</html>
