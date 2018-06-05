@@ -18,41 +18,61 @@
             $id = intval($_GET['id']);
 
             // pripremamo upit
+            /*
             $sqlPost = "SELECT * FROM posts WHERE id=$id";
             $sqlComment = "SELECT * FROM comments WHERE post_id=$id";
             $statementPost = $connection->prepare($sqlPost);
             $statementComment = $connection->prepare($sqlComment);
+            */
 
+            $sqlJoin = "SELECT posts.id, posts.title, posts.body, posts.author as postAuthor, posts.created_at, comments.id, comments.author as commentAuthor, comments.text, comments.post_id
+            FROM posts INNER JOIN comments
+            ON posts.id = comments.post_id
+            WHERE comments.post_id = $id";
+            $statementJoin = $connection->prepare($sqlJoin);
 
             // izvrsavamo upit
+            $statementJoin->execute();
+            /*
             $statementPost->execute();
             $statementComment->execute();
-
+            */
             // zelimo da se rezultat vrati kao asocijativni niz.
             // ukoliko izostavimo ovu liniju, vratice nam se obican, numerisan niz
-            $statementComment->setFetchMode(PDO::FETCH_ASSOC);
+
+            //$statementComment->setFetchMode(PDO::FETCH_ASSOC);
+            $statementJoin->setFetchMode(PDO::FETCH_ASSOC);
 
             // punimo promenjivu sa rezultatom upita
+            $join = $statementJoin->fetchAll();
+            /*
             $post = $statementPost->fetch();
             $comments = $statementComment->fetchAll();
-
+            */
             // koristite var_dump kada god treba da proverite sadrzaj neke promenjive
                 /*
                 echo '<pre>';
-                var_dump($comments);
+                var_dump($join);
                 echo '</pre>';
                 */
-
             ?>
 
             <div class="blog-post">
 
-                <h2 class="blog-post-title"><?php echo($post['title'])?></h2>
-                <p class="blog-post-meta"><?php echo($post['created_at'])?> by <a href="#"><?php echo($post['author'])?></a></p>
+                <h2 class="blog-post-title"><?php echo($join[0]['title'])?></h2>
+                <p class="blog-post-meta"><?php echo($join[0]['created_at'])?> by <a href="#"><?php echo($join[0]['postAuthor'])?></a></p>
 
-                <p><?php echo($post['body'])?></p>
+                <p><?php echo($join[0]['body'])?></p>
 
             </div><!-- /.blog-post -->
+
+            <?php
+                $comments = [];
+                foreach($join as $comment) {
+                    $single = array('author' => $comment['commentAuthor'], 'text' => $comment['text']);
+                    array_push($comments, $single);
+                }
+            ?>
 
             <?php
                 foreach ($comments as $comment) {
@@ -66,6 +86,7 @@
             <?php
                 }
             ?>
+
 
         </div>
 
