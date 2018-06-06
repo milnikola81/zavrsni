@@ -1,5 +1,5 @@
 <?php
-	session_start();
+    session_start();
 ?>
 
 <?php
@@ -22,6 +22,7 @@
 
             //uzimamo id iz url-a
             $id = intval($_GET['id']);
+            //var_dump($id);
 
             // pripremamo upit
             /*
@@ -64,18 +65,15 @@
             ?>
 
             <div class="blog-post">
-
                 <h2 class="blog-post-title"><?php echo($join[0]['title'])?></h2>
                 <p class="blog-post-meta"><?php echo($join[0]['created_at'])?> by <a href="#"><?php echo($join[0]['postAuthor'])?></a></p>
-
                 <p><?php echo($join[0]['body'])?></p>
-
             </div><!-- /.blog-post -->
 
             <form method="POST" action="">
                 <h5>Leave a comment...</h5>
                 <br>
-                <input type="text" name="author" placeholder="Enter your name..." value="<?php if(isset($_POST['author'])) { echo $_POST['author']; } ?>" />
+                <input type="text" name="author" placeholder="Enter your name..." value="<?php if(isset($_POST['author'])) { echo $_POST['author']; }?>" />
                 <br>
                 
                 <?php
@@ -84,9 +82,8 @@
                     echo '<br>';
                 }
                 ?>
-
                 <br>
-                <textarea rows="4" cols="50" name="comment" placeholder="Enter your comment..." value="<?php if(isset($_POST['comment'])) { echo $_POST['comment']; } ?>" ></textarea>
+                <textarea rows="4" cols="50" name="comment" placeholder="Enter your comment..." value="<?php if(isset($_POST['comment'])) {echo $_POST['comment'];}?>"></textarea>
                 
                 <?php
                 if(isset($_POST['submit']) && empty($_POST['comment'])) {
@@ -97,9 +94,13 @@
 
                 <?php
                 if(isset($_POST['submit']) && !empty($_POST['author']) && !empty($_POST['comment'])) {
-                    header("location: create-comment.php?post_id=$id");
+                    error_reporting(E_ALL);
+                    ini_set('display_errors', TRUE);                   
+                    header("Location: create-comment.php?post_id=$id");
                     $_SESSION['author'] = $_POST['author'];
                     $_SESSION['comment'] = $_POST['comment'];
+                    //exit();
+                    //header("location: create-comment.php?post_id=$id");
                     //var_dump($_SESSION['author']);
                     //var_dump($_SESSION['comment']);
                 }
@@ -133,8 +134,8 @@
             ?>
                 
                 <ul class="comment" style='color: #969696; list-style-type: none'>
-                    <li style='margin-bottom: 1rem'><strong><em><?php echo($comment['author']) ?></em></strong></li>
-                    <li><em><?php echo($comment['text']) ?></em></li>
+                    <li style='margin-bottom: 1rem'><strong><em><?php echo($comment['author'])?></em></strong></li>
+                    <li><em><?php echo($comment['text'])?></em></li>
                     <hr>
                 </ul>
 
