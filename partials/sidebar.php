@@ -1,8 +1,40 @@
 <aside class="col-sm-3 ml-sm-auto blog-sidebar">
     <div class="sidebar-module sidebar-module-inset">
-        <h4>About</h4>
-        <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
+        <h4 style='margin-bottom: 2rem'>Latest posts</h4>
+        <?php
+
+            // pripremamo upit
+            $sql = "SELECT id, title, body, author, created_at FROM posts ORDER BY created_at DESC LIMIT 5";
+            $statement = $connection->prepare($sql);
+
+            // izvrsavamo upit
+            $statement->execute();
+
+            // zelimo da se rezultat vrati kao asocijativni niz.
+            // ukoliko izostavimo ovu liniju, vratice nam se obican, numerisan niz
+            $statement->setFetchMode(PDO::FETCH_ASSOC);
+
+            // punimo promenjivu sa rezultatom upita
+            $posts = $statement->fetchAll();
+
+            // koristite var_dump kada god treba da proverite sadrzaj neke promenjive
+                /*
+                echo '<pre>';
+                var_dump($posts);
+                echo '</pre>'                  
+                */
+        ?>
+        <?php
+            foreach ($posts as $post) {
+        ?>
+            <p><a href = "single-post.php?id=<?php echo($post['id']) ?>"><?php echo($post['title']) ?></a></p>
+
+        <?php
+            }
+        ?>
+        <!--<p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>-->
     </div>
+    <!--
     <div class="sidebar-module">
         <h4>Archives</h4>
         <ol class="list-unstyled">
@@ -28,4 +60,5 @@
             <li><a href="#">Facebook</a></li>
         </ol>
     </div>
+    -->
 </aside>
