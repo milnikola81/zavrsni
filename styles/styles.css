@@ -28,7 +28,7 @@ h2 > a {
 }
 
 .commentStyle {
-    display: none;
+    display: none !important;
 }
 
 form {
@@ -39,4 +39,9 @@ form {
 
 button:hover, #submit:hover {
     cursor: pointer;
+}
+.comment-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }

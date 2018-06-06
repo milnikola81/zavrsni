@@ -99,10 +99,6 @@
                     header("Location: create-comment.php?post_id=$id");
                     $_SESSION['author'] = $_POST['author'];
                     $_SESSION['comment'] = $_POST['comment'];
-                    //exit();
-                    //header("location: create-comment.php?post_id=$id");
-                    //var_dump($_SESSION['author']);
-                    //var_dump($_SESSION['comment']);
                 }
                 ?>
                 <br><br>
@@ -114,7 +110,7 @@
                 $comments = [];
                 foreach($join as $comment) {
                     if($comment['commentAuthor'] != null && $comment['text'] != null) {
-                        $single = array('author' => $comment['commentAuthor'], 'text' => $comment['text']);
+                        $single = array('id' => $comment['id'], 'author' => $comment['commentAuthor'], 'text' => $comment['text']);
                         array_push($comments, $single);
                     }
                 }
@@ -128,16 +124,23 @@
             <?php
                 if(count($comments) > 0) {
             ?>
-                <button class="btn-default" id="toggleButton" onclick="toggleFunction()" style="margin-bottom: 2rem">Hide comments</button>
+                <div>
+                    <button class="btn-default" id="toggleButton" onclick="toggleFunction()" style="margin-bottom: 2rem">Hide comments</button>
+                </div>
+                <hr>
             <?php
+                    $_SESSION['post_id'] = $id;
                     foreach ($comments as $comment) {
             ?>
-                
-                <ul class="comment" style='color: #969696; list-style-type: none'>
-                    <li style='margin-bottom: 1rem'><strong><em><?php echo($comment['author'])?></em></strong></li>
-                    <li><em><?php echo($comment['text'])?></em></li>
-                    <hr>
-                </ul>
+                <div class="comment-wrapper">
+                    <ul class="comment" style='width: 70%; display: inline-block; color: #969696; list-style-type: none'>
+                        <li style='margin-bottom: 1rem'><strong><em><?php echo($comment['author'])?></em></strong></li>
+                        <li><em><?php echo($comment['text'])?></em></li>
+                    </ul>
+                    <button class="btn" onclick='document.location.href="delete-comment.php?comment_id=<?php echo $comment['id']?>"'>Delete comment</button>
+                </div>
+                <hr class="comment-line">
+
 
             <?php
                     }
