@@ -1,4 +1,8 @@
 <?php
+	session_start();
+?>
+
+<?php
     include_once "partials/dbconnection.php";
 ?>
 
@@ -67,6 +71,43 @@
                 <p><?php echo($join[0]['body'])?></p>
 
             </div><!-- /.blog-post -->
+
+            <form method="POST" action="">
+                <h5>Leave a comment...</h5>
+                <br>
+                <input type="text" name="author" placeholder="Enter your name..." value="<?php if(isset($_POST['author'])) { echo $_POST['author']; } ?>" />
+                <br>
+                
+                <?php
+                if(isset($_POST['submit']) && empty($_POST['author'])) {
+                    echo "<p class='alert-danger' style='display: inline-block'>* Name required.</p>";
+                    echo '<br>';
+                }
+                ?>
+
+                <br>
+                <textarea rows="4" cols="50" name="comment" placeholder="Enter your comment..." value="<?php if(isset($_POST['comment'])) { echo $_POST['comment']; } ?>" ></textarea>
+                
+                <?php
+                if(isset($_POST['submit']) && empty($_POST['comment'])) {
+                    echo "<p class='alert-danger' style='display: inline-block'>* Comment required.</p>";
+                    echo '<br>';
+                }
+                ?>
+
+                <?php
+                if(isset($_POST['submit']) && !empty($_POST['author']) && !empty($_POST['comment'])) {
+                    header("location: create-comment.php?post_id=$id");
+                    $_SESSION['author'] = $_POST['author'];
+                    $_SESSION['comment'] = $_POST['comment'];
+                    //var_dump($_SESSION['author']);
+                    //var_dump($_SESSION['comment']);
+                }
+                ?>
+                <br><br>
+                <input type="submit" name="submit" id="submit" value="Submit comment" />
+
+            </form>
 
             <?php
                 $comments = [];
