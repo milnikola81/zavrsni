@@ -6,6 +6,8 @@
     include_once "partials/header.php";
 ?>
 
+
+
 <main role="main" class="container">
 
     <div class="row">
@@ -26,9 +28,9 @@
             */
 
             $sqlJoin = "SELECT posts.id, posts.title, posts.body, posts.author as postAuthor, posts.created_at, comments.id, comments.author as commentAuthor, comments.text, comments.post_id
-            FROM posts INNER JOIN comments
+            FROM posts LEFT JOIN comments
             ON posts.id = comments.post_id
-            WHERE comments.post_id = $id";
+            WHERE posts.id = $id";
             $statementJoin = $connection->prepare($sqlJoin);
 
             // izvrsavamo upit
@@ -69,14 +71,26 @@
             <?php
                 $comments = [];
                 foreach($join as $comment) {
-                    $single = array('author' => $comment['commentAuthor'], 'text' => $comment['text']);
-                    array_push($comments, $single);
+                    if($comment['commentAuthor'] != null && $comment['text'] != null) {
+                        $single = array('author' => $comment['commentAuthor'], 'text' => $comment['text']);
+                        array_push($comments, $single);
+                    }
                 }
+                /*
+                echo '<pre>';
+                var_dump($comments);
+                echo '</pre>';
+                */
             ?>
 
             <?php
-                foreach ($comments as $comment) {
+                if(count($comments) > 0) {
             ?>
+                <button class="btn-default" id="toggleButton" onclick="toggleFunction()" style="margin-bottom: 2rem">Hide comments</button>
+            <?php
+                    foreach ($comments as $comment) {
+            ?>
+                
                 <ul class="comment" style='color: #969696; list-style-type: none'>
                     <li style='margin-bottom: 1rem'><strong><em><?php echo($comment['author']) ?></em></strong></li>
                     <li><em><?php echo($comment['text']) ?></em></li>
@@ -84,6 +98,7 @@
                 </ul>
 
             <?php
+                    }
                 }
             ?>
 
