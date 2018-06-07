@@ -25,4 +25,9 @@ function deleteFunction(post_id) {
     //console.log("delete-post.php?post_id="+post_id);
     document.location.href="delete-post.php?post_id="+post_id;
 }
+/*
+function validateForm(title, author, post) {
 
+    alert('Validate');
+}
+*/

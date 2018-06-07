@@ -1,7 +1,6 @@
 <script>
     window.onload = function() {
         var navlinks = document.getElementsByClassName("nav-link");
-        console.log(navlinks);
         for (var i = 0; i < navlinks.length; i++) {
             navlinks[i].classList.remove('active');
         }
