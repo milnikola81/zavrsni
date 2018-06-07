@@ -5,6 +5,8 @@
     </p>
 </footer>
 
+<!-- JavaScript -->
+<script src="js/blog.js"></script>
 
 </body>
 </html>

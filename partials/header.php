@@ -17,31 +17,6 @@
     <link href="styles/blog.css" rel="stylesheet">
     <link href="styles/styles.css" rel="stylesheet">
 
-    <script>
-
-    function toggleFunction() { //comments button toggle function
-        var myBtn = document.getElementById('toggleButton');
-        if (myBtn.innerHTML === 'Hide comments') {
-            myBtn.innerHTML = 'Show comments';            
-        }
-        else if (myBtn.innerHTML === 'Show comments') {
-            myBtn.innerHTML = 'Hide comments';            
-        }
-
-        var comments = document.getElementsByClassName("comment-wrapper");
-        //console.log(comments);
-        for (var i = 0; i < comments.length; i++) {
-            comments[i].classList.toggle('commentStyle');
-        }
-        var lines = document.getElementsByClassName("comment-line");
-        //console.log(lines);
-        for (var i = 0; i < lines.length; i++) {
-            lines[i].classList.toggle('commentStyle');
-        }
-
-    }
-
-    </script>
 
 </head>
 
@@ -51,11 +26,8 @@
         <div class="blog-masthead" id="navbarContainer">
             <div class="container">
                 <nav class="nav" id="myNavbar">
-                    <a class="nav-link active" href="../posts.php">Home</a>
-                    <a class="nav-link" href="#">New features</a>
-                    <a class="nav-link" href="#">Press</a>
-                    <a class="nav-link" href="#">New hires</a>
-                    <a class="nav-link" href="#">About</a>
+                    <a class="nav-link" id="nav-home" href="../posts.php">Home</a>
+                    <a class="nav-link" id="nav-create" href="../create-post.php">Create</a>
                 </nav>
             </div>
         </div>

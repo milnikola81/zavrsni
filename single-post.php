@@ -73,7 +73,7 @@
             <form method="POST" action="">
                 <h5>Leave a comment...</h5>
                 <br>
-                <input type="text" name="author" placeholder="Enter your name..." value="<?php if(isset($_POST['author'])) { echo $_POST['author']; }?>" />
+                <input type="text" name="author" placeholder="Your name here..." value="<?php if(isset($_POST['author'])) { echo $_POST['author']; }?>" />
                 <br>
                 
                 <?php
@@ -83,7 +83,7 @@
                 }
                 ?>
                 <br>
-                <textarea rows="4" cols="50" name="comment" placeholder="Enter your comment..."></textarea>
+                <textarea rows="4" cols="50" name="comment" placeholder="Your comment here..."></textarea>
 
                 <?php
                 if(isset($_POST['submit']) && empty($_POST['comment'])) {
@@ -123,7 +123,7 @@
             <?php
                 if(count($comments) > 0) {
             ?>
-                <div>
+                <div id="toggleBtnDiv">
                     <button class="btn-default" id="toggleButton" onclick="toggleFunction()" style="margin-bottom: 2rem">Hide comments</button>
                 </div>
                 <hr>
@@ -147,7 +147,7 @@
             ?>
 
 
-        </div>
+        </div> <!---blog main ---->
 
         <?php
             include_once "partials/sidebar.php";
