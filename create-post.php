@@ -48,7 +48,7 @@
                 ?>
 
                 <br>
-                <textarea rows="12" cols="50" name="post" placeholder="Text for your post here..."></textarea>
+                <textarea rows="12" cols="70" name="post" placeholder="Text for your post here..."><?php if(!empty($_POST['post'])) { echo $_POST['post']; }?></textarea>
 
                 
                 <?php
@@ -56,7 +56,7 @@
                     echo "<p class='alert-danger' style='display: inline-block'>* Text required.</p>";
                     echo '<br>';
                 }
-                else if(isset($_POST['submit']) && isset($_POST['title']) && isset($_POST['author']) && isset($_POST['post'])) {
+                else if(isset($_POST['submit']) && !empty($_POST['title']) && !empty($_POST['author']) && !empty($_POST['post'])) {
                     $title = $_POST['title'];
                     $author = $_POST['author'];
                     $text = $_POST['post'];

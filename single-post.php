@@ -83,7 +83,7 @@
                 }
                 ?>
                 <br>
-                <textarea rows="4" cols="50" name="comment" placeholder="Your comment here..."></textarea>
+                <textarea rows="4" cols="60" name="comment" placeholder="Your comment here..."><?php if(!empty($_POST['comment'])) { echo $_POST['comment']; }?></textarea>
 
                 <?php
                 if(isset($_POST['submit']) && empty($_POST['comment'])) {
@@ -91,7 +91,7 @@
                     echo '<br>';
                 }
 
-                else if(isset($_POST['submit']) && isset($_POST['author']) && isset($_POST['comment'])) {
+                else if(isset($_POST['submit']) && !empty($_POST['author']) && !empty($_POST['comment'])) {
                     $_SESSION['author'] = $_POST['author'];
                     $_SESSION['comment'] = $_POST['comment'];
                     error_reporting(E_ALL);

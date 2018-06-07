@@ -1,7 +1,6 @@
 <script>
     window.onload = function() {
         var navlinks = document.getElementsByClassName("nav-link");
-        console.log(navlinks);
         for (var i = 0; i < navlinks.length; i++) {
             navlinks[i].classList.remove('active');
         }
@@ -57,7 +56,9 @@
                     <h2 class="blog-post-title"><a href = "single-post.php?id=<?php echo($post['id']) ?>"><?php echo($post['title']) ?></a></h2>
                     <p class="blog-post-meta"><?php echo ($post['created_at']) ?> by <a href="#"><?php echo($post['author']) ?></a></p>
                     <p><?php echo ($post['body']) ?></p>
+                    <button class="btn-primary" onclick="deleteFunction(<?php echo($post['id'])?>)">Delete this post</button>
                 </div>
+                
 
             <?php
                 }
