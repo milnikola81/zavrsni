@@ -24,7 +24,7 @@
 ?>
 
 <?php
-header("location: single-post.php?id=$post_id");
+header("Location: single-post.php?id=$post_id");
 // remove stored variables from session
 session_unset(); 
 // destroy the session 

@@ -83,22 +83,21 @@
                 }
                 ?>
                 <br>
-                <textarea rows="4" cols="50" name="comment" placeholder="Enter your comment..." value="<?php if(isset($_POST['comment'])) {echo $_POST['comment'];}?>"></textarea>
-                
+                <textarea rows="4" cols="50" name="comment" placeholder="Enter your comment..."></textarea>
+
                 <?php
                 if(isset($_POST['submit']) && empty($_POST['comment'])) {
                     echo "<p class='alert-danger' style='display: inline-block'>* Comment required.</p>";
                     echo '<br>';
                 }
-                ?>
 
-                <?php
-                if(isset($_POST['submit']) && !empty($_POST['author']) && !empty($_POST['comment'])) {
-                    error_reporting(E_ALL);
-                    ini_set('display_errors', TRUE);                   
-                    header("Location: create-comment.php?post_id=$id");
+                else if(isset($_POST['submit']) && isset($_POST['author']) && isset($_POST['comment'])) {
                     $_SESSION['author'] = $_POST['author'];
                     $_SESSION['comment'] = $_POST['comment'];
+                    error_reporting(E_ALL);
+                    ini_set('display_errors', TRUE);                  
+                    header("Location: create-comment.php?post_id=$id");
+                    //exit();
                 }
                 ?>
                 <br><br>

@@ -1,6 +1,4 @@
 <?php
-    // ako su mysql username/password i ime baze na vasim racunarima drugaciji
-    // obavezno ih ovde zamenite
     $servername = "127.0.0.1";
     $username = "root";
     $password = "";
