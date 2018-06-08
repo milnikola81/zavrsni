@@ -26,8 +26,8 @@
         <div class="blog-masthead" id="navbarContainer">
             <div class="container">
                 <nav class="nav" id="myNavbar">
-                    <a class="nav-link" id="nav-home" href="../posts.php">Home</a>
-                    <a class="nav-link" id="nav-create" href="../create-post.php">Create</a>
+                    <a class="nav-link" id="nav-home" href="../newPosts.php">Home</a>
+                    <a class="nav-link" id="nav-create" href="../newCreate-post-js.php">Create</a>
                 </nav>
             </div>
         </div>

@@ -24,3 +24,10 @@ INSERT INTO comments (author, text, post_id) VALUES ('Nikola Pacariz', 'The rela
 INSERT INTO comments (author, text, post_id) VALUES ('Aleksandar Cole', 'Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.', '2');
 
 INSERT INTO comments (author, text, post_id) VALUES ('Becar Paprikas', 'If you are going to use a passage of Lorem Ipsum, you need to be sure there isnt anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.', '3');
+
+INSERT INTO users (first_name, last_name) VALUES ('Homer', 'Simpson');
+INSERT INTO users (first_name, last_name) VALUES ('Marge', 'Simpson'); 
+INSERT INTO users (first_name, last_name) VALUES ('Lisa', 'Simpson'); 
+INSERT INTO users (first_name, last_name) VALUES ('Bart', 'Simpson'); 
+INSERT INTO users (first_name, last_name) VALUES ('Maggies', 'Simpson');
+INSERT INTO users (first_name, last_name) VALUES ('Johnny', 'Bravo');

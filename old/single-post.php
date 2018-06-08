@@ -1,5 +1,9 @@
 <?php
-    include_once "partials/testbaseconnection.php";
+    session_start();
+?>
+
+<?php
+    include_once "partials/dbconnection.php";
 ?>
 
 <?php
@@ -17,7 +21,7 @@
             <?php
 
             //uzimamo id iz url-a
-            $post_id = intval($_GET['post_id']);
+            $id = intval($_GET['id']);
             //var_dump($id);
 
             // pripremamo upit
@@ -28,12 +32,10 @@
             $statementComment = $connection->prepare($sqlComment);
             */
 
-            $sqlJoin = "SELECT users.id as userId, users.first_name, users.last_name, 
-            posts.id as postId, posts.author, posts.title, posts.body, posts.created_at, 
-            comments.id as commentId, comments.post_id, comments.text as commentText, comments.author as commentAuthor
-            FROM users RIGHT JOIN posts ON users.id = posts.author 
-            LEFT JOIN comments ON posts.id = comments.post_id 
-            WHERE posts.id=$post_id;";
+            $sqlJoin = "SELECT posts.id, posts.title, posts.body, posts.author as postAuthor, posts.created_at, comments.id, comments.author as commentAuthor, comments.text, comments.post_id
+            FROM posts LEFT JOIN comments
+            ON posts.id = comments.post_id
+            WHERE posts.id = $id";
             $statementJoin = $connection->prepare($sqlJoin);
 
             // izvrsavamo upit
@@ -60,61 +62,54 @@
                 var_dump($join);
                 echo '</pre>';
                 */
-                //var_dump($id);
-            $fullName = $join[0]['first_name']." ".$join[0]['last_name'];
-
             ?>
 
             <div class="blog-post">
                 <h2 class="blog-post-title"><?php echo($join[0]['title'])?></h2>
-                <p class="blog-post-meta"><?php echo($join[0]['created_at'])?> by <a href="#"><?php echo($fullName)?></a></p>
+                <p class="blog-post-meta"><?php echo($join[0]['created_at'])?> by <a href="#"><?php echo($join[0]['postAuthor'])?></a></p>
                 <p><?php echo($join[0]['body'])?></p>
             </div><!-- /.blog-post -->
 
-            <form method="POST" action="create-comment.php?post_id="<?php $post_id ?>"" onsubmit="return validateForm()">
+            <form method="POST" action="">
                 <h5>Leave a comment...</h5>
                 <br>
-                <input type="text" name="author" id="author" placeholder="Your name here..." value="<?php if(isset($_POST['author'])) { echo $_POST['author']; }?>" />
+                <input type="text" name="author" placeholder="Your name here..." value="<?php if(isset($_POST['author'])) { echo $_POST['author']; }?>" />
                 <br>
-
+                
+                <?php
+                if(isset($_POST['submit']) && empty($_POST['author'])) {
+                    echo "<p class='alert-danger' style='display: inline-block'>* Name required.</p>";
+                    echo '<br>';
+                }
+                ?>
                 <br>
-                <textarea rows="4" cols="60" name="comment" id="comment" placeholder="Your comment here..."><?php if(!empty($_POST['comment'])) { echo $_POST['comment']; }?></textarea>
+                <textarea rows="4" cols="60" name="comment" placeholder="Your comment here..."><?php if(!empty($_POST['comment'])) { echo $_POST['comment']; }?></textarea>
 
+                <?php
+                if(isset($_POST['submit']) && empty($_POST['comment'])) {
+                    echo "<p class='alert-danger' style='display: inline-block'>* Comment required.</p>";
+                    echo '<br>';
+                }
+
+                else if(isset($_POST['submit']) && !empty($_POST['author']) && !empty($_POST['comment'])) {
+                    $_SESSION['author'] = $_POST['author'];
+                    $_SESSION['comment'] = $_POST['comment'];
+                    error_reporting(E_ALL);
+                    ini_set('display_errors', TRUE);                  
+                    header("Location: create-comment.php?post_id=$id");
+                    //exit();
+                }
+                ?>
                 <br><br>
-
-                <input type="hidden" name="post_id" value="<?php echo($post_id)?>" />
-
                 <input type="submit" name="submit" id="submit" value="Submit comment" />
 
             </form>
 
-            <script>
-
-                function validateForm() {
-
-                    var author = document.getElementById("author").value;
-                    var post = document.getElementById("comment").value;
-                    
-                    if(author === "") {
-                        alert('You are missing author name!');
-                        return false;
-                    }
-                    else if(post === "") {
-                        alert('You are missing comment text!');
-                        return false;
-                    }
-                    else if(author != "" && comment != "") {
-                        return true;
-                    }
-                }
-
-            </script>
-
-            <?php //ispisuje sve do tog trenutka kreirane komentare
+            <?php
                 $comments = [];
                 foreach($join as $comment) {
-                    if($comment['commentAuthor'] != null && $comment['commentText'] != null) {
-                        $single = array('id' => $comment['commentId'], 'author' => $comment['commentAuthor'], 'text' => $comment['commentText']);
+                    if($comment['commentAuthor'] != null && $comment['text'] != null) {
+                        $single = array('id' => $comment['id'], 'author' => $comment['commentAuthor'], 'text' => $comment['text']);
                         array_push($comments, $single);
                     }
                 }

@@ -1,0 +1,13 @@
+SELECT users.id, users.first_name, users.last_name, posts.id as postId, posts.title, comments.id as commentId, comments.text, comments.post_id FROM users RIGHT JOIN posts ON users.id = posts.author LEFT JOIN comments ON posts.id = comments.post_id WHERE comments.post_id = posts.id;
+
+
+
+
+
+SELECT users.id, users.first_name, users.last_name, posts.id as postId, posts.title, posts.body FROM users RIGHT JOIN posts ON users.id = posts.author;
+
+
+
+
+
+SELECT users.id as userId, users.first_name, users.last_name, posts.id as postId, posts.author, posts.title, posts.body, comments.id as commentId, comments.post_id FROM users RIGHT JOIN posts ON users.id = posts.author LEFT JOIN comments ON posts.id = comments.post_id;

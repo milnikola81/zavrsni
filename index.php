@@ -1,43 +1,69 @@
+<script>
+    window.onload = function() {
+        var navlinks = document.getElementsByClassName("nav-link");
+        for (var i = 0; i < navlinks.length; i++) {
+            navlinks[i].classList.remove('active');
+        }
+        var navHome = document.getElementById('nav-home');
+        navHome.classList.add('active');
+    }
+</script>
+
+<?php
+    include_once "partials/testbaseconnection.php";
+?>
 
 <?php
     include_once "partials/header.php";
 ?>
+
+
 
 <main role="main" class="container">
 
     <div class="row">
 
         <div class="col-sm-8 blog-main">
+            <?php
 
-            <div class="blog-post">
-                <h2 class="blog-post-title"><a href='single-post.php'>Sample blog post</a></h2>
-            </div><!-- /.blog-post -->
+                // pripremamo upit
+                $sql = "SELECT users.id, users.first_name, users.last_name, posts.id as postId, posts.title, posts.body, posts.created_at FROM users RIGHT JOIN posts ON users.id = posts.author ORDER BY created_at DESC";
+                $statement = $connection->prepare($sql);
 
-            <div class="blog-post">
-                <h2 class="blog-post-title"><a href="#">Another blog post</a></h2>
-                <p class="blog-post-meta">December 23, 2013 by <a href="#">Jacob</a></p>
+                // izvrsavamo upit
+                $statement->execute();
 
-                <p>Cum sociis natoque penatibus et magnis <a href="#">dis parturient montes</a>, nascetur ridiculus mus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum.</p>
-                <blockquote>
-                    <p>Curabitur blandit tempus porttitor. <strong>Nullam quis risus eget urna mollis</strong> ornare vel eu leo. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                </blockquote>
-                <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
-                <p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-            </div><!-- /.blog-post -->
+                // zelimo da se rezultat vrati kao asocijativni niz.
+                // ukoliko izostavimo ovu liniju, vratice nam se obican, numerisan niz
+                $statement->setFetchMode(PDO::FETCH_ASSOC);
 
-            <div class="blog-post">
-                <h2 class="blog-post-title"><a href="#">New feature</a></h2>
-                <p class="blog-post-meta">December 14, 2013 by <a href="#">Chris</a></p>
+                // punimo promenjivu sa rezultatom upita
+                $posts = $statement->fetchAll();
 
-                <p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean lacinia bibendum nulla sed consectetur. Etiam porta sem malesuada magna mollis euismod. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-                <ul>
-                    <li>Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</li>
-                    <li>Donec id elit non mi porta gravida at eget metus.</li>
-                    <li>Nulla vitae elit libero, a pharetra augue.</li>
-                </ul>
-                <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
-                <p>Donec ullamcorper nulla non metus auctor fringilla. Nulla vitae elit libero, a pharetra augue.</p>
-            </div><!-- /.blog-post -->
+                // koristite var_dump kada god treba da proverite sadrzaj neke promenjive
+                    /*
+                    echo '<pre>';
+                    var_dump($posts);
+                    echo '</pre>';
+                    */
+
+            ?>
+
+            <?php
+                foreach ($posts as $post) {
+                    $fullName = $post['first_name']." ".$post['last_name'];
+            ?>
+                <div class="blog-post">
+                    <h2 class="blog-post-title"><a href = "single-post.php?post_id=<?php echo($post['postId']) ?>"><?php echo($post['title']) ?></a></h2>
+                    <p class="blog-post-meta"><?php echo ($post['created_at']) ?> by <a href="#"><?php echo($fullName) ?></a></p>
+                    <p><?php echo ($post['body']) ?></p>
+                    <button class="btn-primary" onclick="deleteFunction(<?php echo($post['postId'])?>)">Delete this post</button>
+                </div>
+                
+
+            <?php
+                }
+            ?>
 
             <nav class="blog-pagination">
                 <a class="btn btn-outline-primary" href="#">Older</a>
@@ -58,4 +84,3 @@
 <?php
     include_once "partials/footer.php";
 ?>
-
