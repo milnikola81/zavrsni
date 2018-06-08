@@ -10,7 +10,7 @@
 </script>
 
 <?php
-    include_once "partials/testbaseconnection.php";
+    include_once "partials/dbconnection.php";
 ?>
 
 <?php
@@ -57,7 +57,13 @@
                     <h2 class="blog-post-title"><a href = "single-post.php?post_id=<?php echo($post['postId']) ?>"><?php echo($post['title']) ?></a></h2>
                     <p class="blog-post-meta"><?php echo ($post['created_at']) ?> by <a href="#"><?php echo($fullName) ?></a></p>
                     <p><?php echo ($post['body']) ?></p>
-                    <button class="btn-primary" onclick="deleteFunction(<?php echo($post['postId'])?>)">Delete this post</button>
+                    <?php
+                        if(isset($_SESSION['user_id'])) {
+                    ?>
+                        <button class="btn-primary" onclick="deleteFunction(<?php echo($post['postId'])?>)">Delete this post</button>
+                    <?php
+                        }
+                    ?>
                 </div>
                 
 

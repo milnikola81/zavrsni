@@ -1,4 +1,9 @@
 <?php
+    include_once "partials/header.php";
+?>
+
+
+<?php
     include_once "partials/dbconnection.php";
 ?>
 
@@ -18,5 +23,5 @@
 ?>
 
 <?php
-header("location: posts.php");
+header("location: index.php");
 ?>

@@ -1,5 +1,5 @@
 <?php
-    include_once "partials/testbaseconnection.php";
+    include_once "partials/dbconnection.php";
 ?>
 
 <?php
@@ -93,13 +93,13 @@
                 function validateForm() {
 
                     var author = document.getElementById("author").value;
-                    var post = document.getElementById("comment").value;
+                    var comment = document.getElementById("comment").value;
                     
                     if(author === "") {
                         alert('You are missing author name!');
                         return false;
                     }
-                    else if(post === "") {
+                    else if(comment === "") {
                         alert('You are missing comment text!');
                         return false;
                     }
@@ -114,7 +114,7 @@
                 $comments = [];
                 foreach($join as $comment) {
                     if($comment['commentAuthor'] != null && $comment['commentText'] != null) {
-                        $single = array('id' => $comment['commentId'], 'author' => $comment['commentAuthor'], 'text' => $comment['commentText']);
+                        $single = array('id' => $comment['commentId'], 'author' => $comment['commentAuthor'], 'text' => $comment['commentText'], 'post_id' => $comment['postId']);
                         array_push($comments, $single);
                     }
                 }
@@ -133,7 +133,6 @@
                 </div>
                 <hr>
             <?php
-                    $_SESSION['post_id'] = $id;
                     foreach ($comments as $comment) {
             ?>
                 <div class="comment-wrapper">
@@ -141,7 +140,7 @@
                         <li style='margin-bottom: 1rem'><strong><em><?php echo($comment['author'])?></em></strong></li>
                         <li><em><?php echo($comment['text'])?></em></li>
                     </ul>
-                    <button class="btn" onclick='document.location.href="delete-comment.php?comment_id=<?php echo $comment['id']?>"'>Delete comment</button>
+                    <button class="btn" onclick='document.location.href="delete-comment.php?comment_id=<?php echo $comment['id']?>&post_id=<?php echo $comment['post_id']?>"'>Delete comment</button>
                 </div>
                 <hr class="comment-line">
 

@@ -1,14 +1,10 @@
 <?php
-    session_start();
-?>
-
-<?php
     include_once "partials/dbconnection.php";
 ?>
 
 
 <?php
-    $post_id = $_SESSION['post_id'];
+    $post_id = intval($_GET['post_id']);
     //var_dump($post_id);
 ?>
 
@@ -25,9 +21,5 @@
 ?>
 
 <?php
-header("location: single-post.php?id=$post_id");
-// remove stored variables from session
-session_unset(); 
-// destroy the session 
-session_destroy();
+header("location: single-post.php?post_id=$post_id");
 ?>
