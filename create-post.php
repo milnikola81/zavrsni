@@ -32,6 +32,7 @@
                 if(!isset($_SESSION['user_id'])) {
                 ?>
                     <p>You must be logged in to create new posts.</p>
+                    <p>Have an account? <a href="login.php">Log in here</a>!</p>
 
                 <?php
                 }

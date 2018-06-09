@@ -18,7 +18,7 @@
         <?php
             foreach ($posts as $post) {
         ?>
-            <p><a href = "newSingle-post.php?id=<?php echo($post['id']) ?>"><?php echo($post['title']) ?></a></p>
+            <p><a href = "single-post.php?post_id=<?php echo($post['id']) ?>"><?php echo($post['title']) ?></a></p>
 
         <?php
             }
