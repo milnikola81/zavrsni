@@ -57,10 +57,7 @@
 
                     $array = query($sqlSelect, $connection);
                     
-                    if (count($array) > 0) {
-                        var_dump(crypt($_POST['password'], $array[0]['password']));
-                        var_dump($array[0]['password']);
-                        
+                    if (count($array) > 0) {                   
                         if (crypt($_POST['password'], $array[0]['password']) == $array[0]['password']) {
                             $_SESSION['user_id'] = $array[0]['id'];
                             $_SESSION['username'] = $array[0]['username'];
