@@ -51,17 +51,29 @@
                     }
 
                     $username = $_POST['username'];
-                    $password = $_POST['password'];
+                    //$password = $_POST['password'];
 
-                    $sqlSelect = "SELECT id, username FROM users WHERE '$username' = username AND '$password' = password";
+                    $sqlSelect = "SELECT id, username, password FROM users WHERE '$username' = username";
 
                     $array = query($sqlSelect, $connection);
-
+                    
                     if (count($array) > 0) {
-                        $_SESSION['user_id'] = $array[0]['id'];
-                        $_SESSION['username'] = $array[0]['username'];
-                        header("Location: index.php");
+                        var_dump(crypt($_POST['password'], $array[0]['password']));
+                        var_dump($array[0]['password']);
+                        
+                        if (crypt($_POST['password'], $array[0]['password']) == $array[0]['password']) {
+                            $_SESSION['user_id'] = $array[0]['id'];
+                            $_SESSION['username'] = $array[0]['username'];
+                            header("Location: index.php");
+                        }
+                        else if (crypt($_POST['password'], $array[0]['password']) != $array[0]['password']) {
+                            ?>
+                            <p style="margin-top: 1rem">Wrong username or password.</p>
+                            <p>Don't have an account yet? Please <a href="signup.php">Sign up</a>!</p>
+                            <?php
+                        }
                     }
+
                     else if (count($array) === 0) {
                         ?>
                         <p style="margin-top: 1rem">Wrong username or password.</p>

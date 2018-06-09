@@ -6,7 +6,7 @@
     $firstname = $_POST['firstname'];
     $lastname = $_POST['lastname'];
     $username = $_POST['username'];
-    $password = $_POST['password'];
+    $password = crypt($_POST['password'], $_POST['password']);
     $sqlInsert = "INSERT INTO users (first_name, last_name, username, password) VALUES ('$firstname', '$lastname', '$username', '$password')";
     $statementInsert = $connection->prepare($sqlInsert);
     // izvrsavamo upit
