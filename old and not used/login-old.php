@@ -28,7 +28,7 @@
 
         <div class="col-sm-8 blog-main">
 
-            <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>" onsubmit="return validateForm()"> <!-- redirecting after submit if true -->
+            <form method="POST" action="log-user.php" onsubmit="return validateForm()"> <!-- redirecting after submit if true -->
                 <h5>Login...</h5>
 
                 <br>
@@ -37,41 +37,7 @@
 
                 <br>
                 <input type="password" name="password" id="password" placeholder="Enter your password..." />
-                <br>
-
-                <?php
-
-                if(isset($_POST['submit'])) {
-
-                    function query($sql, $conn){
-                        $statement = $conn->prepare($sql);
-                        $statement->execute();
-                        $result = $statement->setFetchMode(PDO::FETCH_ASSOC);
-                        return $statement->fetchAll();
-                    }
-
-                    $username = $_POST['username'];
-                    $password = $_POST['password'];
-
-                    $sqlSelect = "SELECT id, username FROM users WHERE '$username' = username AND '$password' = password";
-
-                    $array = query($sqlSelect, $connection);
-
-                    if (count($array) > 0) {
-                        $_SESSION['user_id'] = $array[0]['id'];
-                        $_SESSION['username'] = $array[0]['username'];
-                        header("Location: index.php");
-                    }
-                    else if (count($array) === 0) {
-                        ?>
-                        <p style="margin-top: 1rem">Wrong username or password.</p>
-                        <p>Don't have an account yet? Please <a href="signup.php">Sign up</a>!</p>
-                        <?php
-                    }
-
-                }
-                //var_dump($_SESSION['username']);
-                ?>      
+                <br>         
 
                 <br><br>
                 <input type="submit" name="submit" id="submit" value="Login"/>

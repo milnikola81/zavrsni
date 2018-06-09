@@ -8,6 +8,7 @@ html {
 
 #myNavbar {
     background: transparent !important;
+    display: flex;
 }
 
 .nav-link {

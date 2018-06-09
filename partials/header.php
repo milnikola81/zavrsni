@@ -32,12 +32,24 @@
                 <nav class="nav" id="myNavbar">
                     <a class="nav-link" id="nav-home" href="../index.php">Home</a>
                     <a class="nav-link" id="nav-create" href="../create-post.php">Create</a>
-                    <a class="nav-link" id="nav-login" href="../login.php">Login</a>
-                    <a class="nav-link" id="nav-signup" href="../signup.php">Sign up</a>
+                    <?php
+                        if(!isset($_SESSION['user_id'])) {
+                    ?>
+                    <a class="nav-link" id="nav-signup" href="../signup.php" style="margin-left: auto">Sign up</a>
+                    <?php
+                        }
+                    ?>
+                    <?php
+                        if(!isset($_SESSION['user_id'])) {
+                    ?>
+                        <a class="nav-link" id="nav-login" href="../login.php">Login</a>
+                    <?php
+                        }
+                    ?>
                     <?php
                         if(isset($_SESSION['user_id'])) {
                     ?>
-                        <a class="nav-link" id="nav-logout" href="../logout.php">Log out (<?php echo $_SESSION['username'] ?>)</a>
+                        <a class="nav-link" id="nav-logout" href="../logout.php" style="margin-left: auto">Log out (<?php echo $_SESSION['username'] ?>)</a>
                     <?php
                         }
                     ?>
