@@ -19,7 +19,7 @@
             <?php
                 foreach ($posts as $post) {
             ?>
-                <li style="margin-top: 0.5rem"><a href = "single-post.php?post_id=<?php echo($post['id']) ?>"><?php echo($post['title']) ?></a></li>
+                <li style="margin-top: 0.8rem"><a href = "single-post.php?post_id=<?php echo($post['id']) ?>"><?php echo($post['title']) ?></a></li>
 
             <?php
                 }
@@ -49,9 +49,9 @@
     <div class="sidebar-module sidebar-module-inset" style="margin-top: 2rem">
         <h4 style='margin-bottom: 2rem'>Check out other</h4>
         <ol class="list-unstyled">
-            <li style="margin-top: 0.5rem"><a href="#">Mozzartsport</a></li>
-            <li style="margin-top: 0.5rem"><a href="#">Sport Klub</a></li>
-            <li style="margin-top: 0.5rem"><a href="#">Sportske</a></li>
+            <li style="margin-top: 0.8rem"><a href="#">Mozzartsport</a></li>
+            <li style="margin-top: 0.8rem"><a href="#">Sport Klub</a></li>
+            <li style="margin-top: 0.8rem"><a href="#">Sportske</a></li>
         </ol>
     </div>
 </aside>

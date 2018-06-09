@@ -4,8 +4,6 @@
         for (var i = 0; i < navlinks.length; i++) {
             navlinks[i].classList.remove('active');
         }
-        var navHome = document.getElementById('nav-home');
-        navHome.classList.add('active');
     }
 </script>
 
@@ -26,8 +24,11 @@
         <div class="col-sm-8 blog-main">
             <?php
 
+                //uzimamo id iz url-a
+                $user_id = intval($_GET['user_id']);
+
                 // pripremamo upit
-                $sql = "SELECT users.id, users.first_name, users.last_name, posts.id as postId, posts.title, posts.body, posts.created_at FROM users RIGHT JOIN posts ON users.id = posts.author ORDER BY created_at DESC";
+                $sql = "SELECT users.id, users.first_name, users.last_name, posts.id as postId, posts.title, posts.body, posts.created_at FROM users RIGHT JOIN posts ON users.id = posts.author WHERE users.id=$user_id ORDER BY created_at DESC";
                 $statement = $connection->prepare($sql);
 
                 // izvrsavamo upit
@@ -46,12 +47,14 @@
                     var_dump($posts);
                     echo '</pre>';
                     */
+                $fullName = $posts[0]['first_name']." ".$posts[0]['last_name'];
 
             ?>
+            <p class="blog-post-meta" style="font-size: 1.1rem"><em>Showing posts by <?php echo($fullName) ?> . . .</em></p>
+            <hr>
 
             <?php
                 foreach ($posts as $post) {
-                    $fullName = $post['first_name']." ".$post['last_name'];
             ?>
                 <div class="blog-post">
                     <h2 class="blog-post-title"><a href = "single-post.php?post_id=<?php echo($post['postId']) ?>"><?php echo($post['title']) ?></a></h2>
