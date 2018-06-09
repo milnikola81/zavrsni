@@ -12,7 +12,10 @@
     <meta name="author" content="">
     <link rel="icon" href="../../../../favicon.ico">
 
-    <title>Vivify Blog</title>
+    <title>Beaky Buzzard Blog</title>
+
+    <!-- Tab icon -->
+    <link rel="shortcut icon" href="styles/images/beaky.png" type="image/x-icon">
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
@@ -59,7 +62,7 @@
 
         <div class="blog-header">
             <div class="container">
-                <h1 class="blog-title">The Bootstrap Blog</h1>
+                <h1 class="blog-title">The Beaky Buzzard Blog</h1>
                 <p class="lead blog-description">An example blog template built with Bootstrap.</p>
             </div>
         </div>
