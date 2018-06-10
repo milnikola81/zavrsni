@@ -25,9 +25,15 @@
 
         <div class="col-sm-8 blog-main">
             <?php
+                $post_order = $_GET['order'];
 
+                if(!isset($post_order)) {
+                    $post_order = 'DESC';
+                }
+                //var_dump($post_order);
+                
                 // pripremamo upit
-                $sql = "SELECT users.id, users.first_name, users.last_name, posts.id as postId, posts.title, posts.body, posts.created_at FROM users RIGHT JOIN posts ON users.id = posts.author ORDER BY created_at DESC";
+                $sql = "SELECT users.id, users.first_name, users.last_name, posts.id as postId, posts.title, posts.body, posts.created_at FROM users RIGHT JOIN posts ON users.id = posts.author ORDER BY created_at $post_order";
                 $statement = $connection->prepare($sql);
 
                 // izvrsavamo upit
@@ -72,8 +78,8 @@
             ?>
 
             <nav class="blog-pagination">
-                <a class="btn btn-outline-primary" href="#">Older</a>
-                <a class="btn btn-outline-secondary disabled" href="#">Newer</a>
+                <a class="btn btn-outline-primary" href="index.php?order=ASC">Older first</a>
+                <a class="btn btn-outline-primary" href="index.php">Newer first</a>
             </nav>
 
         </div><!-- /.blog-main -->

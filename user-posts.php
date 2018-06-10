@@ -27,8 +27,14 @@
                 //uzimamo id iz url-a
                 $user_id = intval($_GET['user_id']);
 
+                $post_order = $_GET['order'];
+
+                if(!isset($post_order)) {
+                    $post_order = 'DESC';
+                }
+
                 // pripremamo upit
-                $sql = "SELECT users.id, users.first_name, users.last_name, posts.id as postId, posts.title, posts.body, posts.created_at FROM users RIGHT JOIN posts ON users.id = posts.author WHERE users.id=$user_id ORDER BY created_at DESC";
+                $sql = "SELECT users.id, users.first_name, users.last_name, posts.id as postId, posts.title, posts.body, posts.created_at FROM users RIGHT JOIN posts ON users.id = posts.author WHERE users.id=$user_id ORDER BY created_at $post_order";
                 $statement = $connection->prepare($sql);
 
                 // izvrsavamo upit
@@ -75,8 +81,8 @@
             ?>
 
             <nav class="blog-pagination">
-                <a class="btn btn-outline-primary" href="#">Older</a>
-                <a class="btn btn-outline-secondary disabled" href="#">Newer</a>
+                <a class="btn btn-outline-primary" href="user-posts.php?user_id=<?php echo $user_id ?>&order=ASC">Older first</a>
+                <a class="btn btn-outline-primary" href="user-posts.php?user_id=<?php echo $user_id ?>">Newer first</a>
             </nav>
 
         </div><!-- /.blog-main -->
